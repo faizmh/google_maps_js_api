@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Default controls</title>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJ31ykPvUNi8oLrPKFSSjliDQfLb_uyxc&callback=initMap">
+    </script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){       
+        $(".button1,.button2,.button3,.button4").click(function(){
+          $(".button1,.button2,.button3,.button4").hide();
+          $(".close-button,.top").show();
+        });
+        $(".close-button").click(function(){
+          $(".button1,.button2,.button3,.button4").show();
+          $(".close-button,.top").hide();
+        });
+      });
+    </script>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        position: relative;
+      }
+      .search_location{
+        position: absolute;
+        top: 10%;
+        z-index: 888;       
+        width: 250px;
+        margin: 0 auto;
+        margin: auto;
+        left: 0px;
+        right: 0;               
+      }
+      .search_location input{
+        padding: 5px;
+        height: 28px; 
+        width: 100%;
+      }
+      .search_location div{
+        text-align: center;
+        font-size: 26px;
+        font-weight: 600;
+        color: #100f62;
+        text-shadow: 0px 1px 10px #c5c5c5;
+        font-family: arial;
+        margin-top: 10px;
+      }
+      .close-button{
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        bottom: 35px;
+        right: 45px;
+        background: #4aba45;
+        border-radius: 50%;
+        color: #fff;
+        font-size: 20px;
+        font-family: monospace;
+        font-weight: 600;
+        line-height: 50px;        
+        text-align: center;
+        display: none;
+        border:none;
+      }
+      .button4{
+        width: 60px;
+        height: 60px;
+        background-color: transparent;
+        border-radius: 50%;
+        position: absolute;
+        bottom: 130px;
+        right: 30px;
+        background-image: url(images/Button4.png);
+        border: none;
+      }
+      .button2{
+        width: 80px;
+        height: 80px;
+        background-color: transparent;
+        border-radius: 50%;
+        position: absolute;
+        bottom: 70px;
+        right: 70px;
+        background-size: 100%;
+        background-image: url(images/Button5.png);
+        border: none;
+      }
+      .button3{
+        width: 60px;
+        height: 60px;
+        background-color: transparent;
+        border-radius: 50%;
+        position: absolute;
+        bottom: 30px;
+        right: 30px;
+        background-image: url(images/Button3.png);
+        border: none;
+      }
+      .button1 {
+        width: 60px;
+        height: 60px;
+        background-color: transparent;
+        border-radius: 50%;
+        position: absolute;
+        bottom: 30px;
+        left: 30px;
+        border: none;
+        background-image: url(images/Button22.png);
+    }
+    .top{
+      top:20px;
+      display: none;
+    }
+    button{
+      cursor: pointer;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="search_location"> 
+        <input type="text" placeholder="Search Location"  id="pac-input" />
+        <div>Throw your rocks! </div>
+       
+    </div>
+    <div id="map"></div>
+    <button class="button1"></button>
+    <button class="button1 top"></button>
+    <button class="button2"></button>
+    <button class="button3"></button>
+    <button class="button4"></button>
+    <button class="close-button">x</button>
+    <script>
+      var map;
+      var chicago = {lat: 41.85, lng: -87.65};
+
+  
+      function CenterControl(controlDiv, map) {
+
+        // Set CSS for the control border.
+        var controlUI = document.createElement('div');
+        controlUI.style.backgroundColor = '#fff';
+        controlUI.style.border = '2px solid #fff';
+        controlUI.style.borderRadius = '3px';
+        controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+        controlUI.style.cursor = 'pointer';
+        controlUI.style.marginBottom = '22px';
+        controlUI.style.textAlign = 'center';
+        controlUI.title = 'Click to recenter the map';
+        controlDiv.appendChild(controlUI);
+
+     
+        
+
+       
+  
+
+        //top circles
+        var centerMarkerBorder1 = document.createElement('div');
+        centerMarkerBorder1.style.backgroundColor = "rgba(0, 0, 0, 0.42)";        
+        centerMarkerBorder1.style.width = "60px";
+        centerMarkerBorder1.style.height = "60px";
+        centerMarkerBorder1.style.borderRadius = "50%";
+        centerMarkerBorder1.style.position = "absolute";
+        centerMarkerBorder1.style.top = "15px";
+        centerMarkerBorder1.style.right = "100px";
+        centerMarkerBorder1.style.cursor = 'pointer';
+        centerMarkerBorder1.style.marginBottom = '22px';
+        centerMarkerBorder1.style.textAlign = 'center';
+        centerMarkerBorder1.style.color = "#fff";
+        centerMarkerBorder1.style.border = "3px solid green";
+        centerMarkerBorder1.style.fontSize = "14px";
+        centerMarkerBorder1.style.fontFamily = "Roboto,Arial,sans-serif";
+        centerMarkerBorder1.style.lineHeight = '58px';
+        centerMarkerBorder1.style.paddingLeft = "5px";
+        centerMarkerBorder1.innerHTML = '75%';
+        document.body.appendChild(centerMarkerBorder1);
+
+        var centerMarkerBorder2 = document.createElement('div');
+        centerMarkerBorder2.style.backgroundColor = "rgba(0, 0, 0, 0.42)";        
+        centerMarkerBorder2.style.width = "60px";
+        centerMarkerBorder2.style.height = "60px";
+        centerMarkerBorder2.style.borderRadius = "50%";
+        centerMarkerBorder2.style.position = "absolute";
+        centerMarkerBorder2.style.top = "15px";
+        centerMarkerBorder2.style.right = "20px";
+        centerMarkerBorder2.style.cursor = 'pointer';
+        centerMarkerBorder2.style.marginBottom = '22px';
+        centerMarkerBorder2.style.textAlign = 'center';
+        centerMarkerBorder2.style.color = "#fff";
+        centerMarkerBorder2.style.border = "3px solid #b367b4";
+        centerMarkerBorder2.style.fontSize = "14px";
+        centerMarkerBorder2.style.fontFamily = "Roboto,Arial,sans-serif";
+        centerMarkerBorder2.style.lineHeight = '58px';
+        centerMarkerBorder2.style.paddingLeft = "5px";
+        centerMarkerBorder2.innerHTML = '9 kills';
+        document.body.appendChild(centerMarkerBorder2);
+     
+      
+      
+      
+      
+      
+      }
+      
+
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 14,
+          center: chicago
+        });
+
+    
+        var image = {
+            url: 'http://icons.iconarchive.com/icons/paomedia/small-n-flat/256/map-marker-icon.png',
+            size: new google.maps.Size(71, 71),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(17, 34),
+            scaledSize: new google.maps.Size(25, 25)
+            };
+        var beachMarker = new google.maps.Marker({
+            position: {lat: 41.85, lng: -87.65},
+            map: map,
+            icon: image
+        });
+        
+        var image1 = {
+            url: 'images/Button6.png',
+            size: new google.maps.Size(100, 100),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(17, 34)            
+            };
+        var beachMarker = new google.maps.Marker({
+            position: {lat: 41.86, lng: -87.65},
+            map: map,
+            icon: image1
+        });
+
+        var image2 = {
+            url: 'images/Button6.png',
+            size: new google.maps.Size(100, 100),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(17, 34)
+            
+            };
+        var beachMarker = new google.maps.Marker({
+            position: {lat: 41.84, lng: -87.65},
+            map: map,
+            icon: image2
+        });
+
+      
+        var beachMarker = new google.maps.Marker({
+            position: {lat: 41.85, lng: -87.69},
+            map: map,
+            icon: image2
+        });
+
+        // Create the DIV to hold the control and call the CenterControl()
+        // constructor passing in this DIV.
+        var centerControlDiv = document.createElement('div');
+        var centerControl = new CenterControl(centerControlDiv, map);
+
+        centerControlDiv.index = 1;
+        map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
+
+        var defaultBounds = new google.maps.LatLngBounds(
+        new google.maps.LatLng(-33.8902, 151.1759),
+        new google.maps.LatLng(-33.8474, 151.2631));
+
+    
+
+
+      }
+ 
+      
+
+
+
+
+    </script>
+
+  </body>
+</html>
